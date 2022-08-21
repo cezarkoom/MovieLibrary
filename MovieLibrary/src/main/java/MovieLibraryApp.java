@@ -19,11 +19,10 @@ public class MovieLibraryApp {
                     MovieLibrary.getRandomMovieInformation();
                     break;
                 case DISPLAYACTORFROMMOVIE:
-                    System.out.println("Mission Impossible\n\n");
-                    // TODO Uzupełnić opcję 2
+                    MovieLibrary.printActorFilmography();
                     break;
                 case EXITAPPLICATION:
-                    System.out.printf("Zamykanie aplikacji");
+                    System.out.println("Zamykanie aplikacji");
                     System.exit(1);
                 default:
                     System.out.println("Wybrałeś niepoprawny numer!");

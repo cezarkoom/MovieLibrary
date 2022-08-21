@@ -1,9 +1,12 @@
 package models;
 
 import helpers.RandomDataProvider;
+import helpers.UserInputHandler;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MovieLibrary {
     private static List<Movie> moviesLibrary;
@@ -44,5 +47,28 @@ public class MovieLibrary {
     public static void getRandomMovieInformation(){
         System.out.println(moviesLibrary.get(RandomDataProvider.getRandomMovieIndex()));
     }
+    public static void printActorFilmography(){
+        Actor actor = UserInputHandler.getActorFromUser();
+        List<String> actorFilmography = getActorFilmographyList(actor);
+        if(actorFilmography.isEmpty()){
+            System.out.println("Twój aktor nie grał w żadnym filmie z naszej biblioteki");
+        }
+        else{
+            System.out.println("Aktor " + actor + "grał w nastepujących filmach: ");
+            for (String s : actorFilmography) {
+                System.out.println(s + "");
+            }
+        }
+    }
 
+    private static List<String> getActorFilmographyList(Actor actorToFind) {
+        Predicate<Movie> movieCheck = movie -> movie.getListOfActors().stream()
+                .anyMatch(actor -> actor.getFirstName().equals(actorToFind.getFirstName()) &&
+                        actor.getLastName().equals(actorToFind.getLastName()));
+
+        return moviesLibrary.stream()
+                .filter(movieCheck)
+                .map(Movie::getTitle)
+                .collect(Collectors.toList());
+    }
 }
