@@ -1,25 +1,28 @@
 import helpers.Menu;
+import helpers.UserInputHandler;
+import models.MovieLibrary;
 
 import java.util.Scanner;
 
+import static models.MenuOptions.*;
+
 public class MovieLibraryApp {
     public static void main(String[] args) {
+        MovieLibrary.fillMovieList();
         Menu.welcomeMessage();
         while (true) {
             Menu.printMenuOptions();
-            Scanner scan = new Scanner(System.in);
-            int userOption = scan.nextInt();
 
-            switch (userOption) {
-                case 1:
-                    System.out.println("Top Gun\n\n");
-                    // TODO Uzupełnić opcję 1
+            switch (UserInputHandler.getMenuOptionFromUser()) {
+                case DISPLAYINFORMATIONABOUTRANDOMMOVIE:
+                    System.out.println("Wylosowałeś film: ");
+                    MovieLibrary.getRandomMovieInformation();
                     break;
-                case 2:
+                case DISPLAYACTORFROMMOVIE:
                     System.out.println("Mission Impossible\n\n");
                     // TODO Uzupełnić opcję 2
                     break;
-                case 3:
+                case EXITAPPLICATION:
                     System.out.printf("Zamykanie aplikacji");
                     System.exit(1);
                 default:

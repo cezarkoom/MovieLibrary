@@ -1,5 +1,7 @@
 package models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class Movie {
@@ -35,5 +37,21 @@ public class Movie {
 
     public void setListOfActors(List<Actor> listOfActors) {
         this.listOfActors = listOfActors;
+    }
+
+    private @NotNull String printActorsInOneLine(){
+        var actorsInOneRow = new StringBuilder();
+        String separator = "";
+        for (Actor listOfActor : listOfActors) {
+            actorsInOneRow.append(separator + listOfActor+"");
+            separator = ", ";
+        }
+        return actorsInOneRow.toString();
+    }
+    @Override
+    public String toString() {
+        return  "title='" + title + '\'' +
+                ", director=" + director +
+                ", listOfActors=" + printActorsInOneLine();
     }
 }
